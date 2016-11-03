@@ -33,8 +33,9 @@ blues =
 view seed =
     group
         [ backdrop
-        , rex seed -200 ruddy |> move -140 0
-        , rex seed 50 blues |> scale 0.6
+        , rex seed ruddy |> move -140 0
+        , rex seed blues |> scale 0.6
+        , nameplate "C1103: Battletowers"
         ]
         |> svg width height
 
@@ -47,7 +48,7 @@ randomrect seed =
         ( rectangle (toFloat x) rheight, newSeed )
 
 
-rex seed xbase col =
+rex seed col =
     let
         step n ( rects, seed ) =
             let
@@ -62,6 +63,10 @@ rex seed xbase col =
         List.foldl step ( [], Random.initialSeed seed ) [0..7]
             |> fst
             |> group
+
+
+nameplate s =
+    plain 24 "Arial" Color.black s |> move (-1 * width * 0.48) (height * 0.48)
 
 
 type alias Model =
