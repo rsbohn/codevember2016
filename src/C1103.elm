@@ -14,6 +14,10 @@ height =
     512
 
 
+rheight =
+    30
+
+
 backdrop =
     rectangle width height |> solidFill (hsl (degrees 120) 0.2 0.6)
 
@@ -29,14 +33,10 @@ blues =
 view seed =
     group
         [ backdrop
-        , rex seed -200 ruddy
-        , rex seed 50 blues
+        , rex seed -200 ruddy |> move -140 0
+        , rex seed 50 blues |> scale 0.6
         ]
         |> svg width height
-
-
-spread items h n =
-    n * h / items - h / 2
 
 
 randomrect seed =
@@ -44,11 +44,7 @@ randomrect seed =
         ( x, newSeed ) =
             Random.step (Random.int 50 150) seed
     in
-        ( rectangle (toFloat x) 30, newSeed )
-
-
-ubica x q =
-    move x (spread 5 (height / 4) q)
+        ( rectangle (toFloat x) rheight, newSeed )
 
 
 rex seed xbase col =
@@ -59,12 +55,12 @@ rex seed xbase col =
                     randomrect seed
 
                 rect =
-                    shape |> solidFill col |> ubica xbase n
+                    shape |> solidFill col |> move 0 (rheight * n * 0.8)
             in
                 ( rect :: rects, nextSeed )
     in
         List.foldl step ( [], Random.initialSeed seed ) [0..7]
-            |> (\( rs, _ ) -> rs)
+            |> fst
             |> group
 
 
