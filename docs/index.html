@@ -8335,6 +8335,7 @@ var _evancz$elm_sortable_table$Table$increasingBy = function (toComparable) {
 };
 var _evancz$elm_sortable_table$Table$None = {ctor: 'None'};
 var _evancz$elm_sortable_table$Table$unsortable = _evancz$elm_sortable_table$Table$None;
+var _rsbohn$codevember2016$Main$base = 'https://github.com/rsbohn/codevember2016';
 var _rsbohn$codevember2016$Main$linkToSource = function (project) {
 	return {
 		attributes: _elm_lang$core$Native_List.fromArray(
@@ -8346,7 +8347,10 @@ var _rsbohn$codevember2016$Main$linkToSource = function (project) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$href(
-						A2(_elm_lang$core$Basics_ops['++'], '/src/', project.source))
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							_rsbohn$codevember2016$Main$base,
+							A2(_elm_lang$core$Basics_ops['++'], '/src/', project.source)))
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[

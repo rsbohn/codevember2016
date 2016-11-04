@@ -97,11 +97,15 @@ dayColumn =
         }
 
 
+base =
+    "https://github.com/rsbohn/codevember2016"
+
+
 linkToSource : Project -> { attributes : List a, children : List (Html b) }
 linkToSource project =
     { attributes = []
     , children =
-        [ a [ href ("/src/" ++ project.source) ]
+        [ a [ href (base ++ "/src/" ++ project.source) ]
             [ text project.source ]
         ]
     }
