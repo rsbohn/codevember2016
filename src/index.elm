@@ -105,7 +105,7 @@ linkToSource : Project -> { attributes : List a, children : List (Html b) }
 linkToSource project =
     { attributes = []
     , children =
-        [ a [ href (base ++ "/src/" ++ project.source) ]
+        [ a [ href (base ++ "/blob/master/src/" ++ project.source) ]
             [ text project.source ]
         ]
     }
