@@ -9877,6 +9877,29 @@ var _rsbohn$codevember2016$C1105$angle = _elm_lang$core$Basics$fst(
 		_elm_lang$core$Random$step,
 		A2(_rsbohn$codevember2016$C1105$randomAngle, 1, 10),
 		_elm_lang$core$Random$initialSeed(0)));
+var _rsbohn$codevember2016$C1105$spread = F3(
+	function (m0, m1, n) {
+		var summing = F2(
+			function (a, b) {
+				var _p2 = b;
+				if (_p2.ctor === '[]') {
+					return _elm_lang$core$Native_List.fromArray(
+						[m0]);
+				} else {
+					return A2(_elm_lang$core$List_ops['::'], a + _p2._0, b);
+				}
+			});
+		var delta = (m1 - m0) / n;
+		return A3(
+			_elm_lang$core$List$foldl,
+			summing,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			A2(
+				_elm_lang$core$List$repeat,
+				_elm_lang$core$Basics$round(n),
+				delta));
+	});
 var _rsbohn$codevember2016$C1105$height = 512;
 var _rsbohn$codevember2016$C1105$width = 720;
 var _rsbohn$codevember2016$C1105$backdrop = A2(
@@ -9942,41 +9965,75 @@ var _rsbohn$codevember2016$C1105$spark = function (x) {
 			]));
 };
 var _rsbohn$codevember2016$C1105$baseUrl = 'https://github.com/rsbohn/codevember2016';
-var _rsbohn$codevember2016$C1105$withSourceLink = function (graph) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[graph])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$html$Html$a,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Attributes$href(
-								A2(_elm_lang$core$Basics_ops['++'], _rsbohn$codevember2016$C1105$baseUrl, '/blob/master/src/C1105.elm'))
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html$text('source')
-							]))
-					]))
-			]));
-};
+var _rsbohn$codevember2016$C1105$withSourceLink = F3(
+	function (sketchID, message, graph) {
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							{
+							ctor: '_Tuple2',
+							_0: 'width',
+							_1: A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(_rsbohn$codevember2016$C1105$width),
+								'px')
+						}
+						]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[graph])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$style(
+							_elm_lang$core$Native_List.fromArray(
+								[
+									{ctor: '_Tuple2', _0: 'textAlign', _1: 'center'}
+								]))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(message)
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							_elm_lang$html$Html$a,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html_Attributes$href(
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_rsbohn$codevember2016$C1105$baseUrl,
+										A2(_elm_lang$core$Basics_ops['++'], '/blob/master/src/', sketchID)))
+								]),
+							_elm_lang$core$Native_List.fromArray(
+								[
+									_elm_lang$html$Html$text('source')
+								]))
+						]))
+				]));
+	});
 var _rsbohn$codevember2016$C1105$view = function (model) {
-	return _rsbohn$codevember2016$C1105$withSourceLink(
+	return A3(
+		_rsbohn$codevember2016$C1105$withSourceLink,
+		'C1105.elm',
+		'',
 		A3(
 			_Kwarrtz$render$Graphics_Render$svg,
 			_rsbohn$codevember2016$C1105$width,
@@ -10004,7 +10061,7 @@ var _rsbohn$codevember2016$C1105$main = {
 					};
 				}),
 			view: _rsbohn$codevember2016$C1105$view,
-			subscriptions: function (_p2) {
+			subscriptions: function (_p3) {
 				return A2(
 					_elm_lang$core$Time$every,
 					500,

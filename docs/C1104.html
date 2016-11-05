@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>C1104</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -9459,15 +9459,15 @@ var _elm_lang$html$Html_App$beginnerProgram = function (_p1) {
 		});
 };
 var _elm_lang$html$Html_App$map = _elm_lang$virtual_dom$VirtualDom$map;
-var _rsbohn$codevember2016$Main$update = F2(
+var _rsbohn$codevember2016$C1104$update = F2(
 	function (msg, model) {
 		return msg;
 	});
-var _rsbohn$codevember2016$Main$translucent = function (c) {
+var _rsbohn$codevember2016$C1104$translucent = function (c) {
 	var original = _elm_lang$core$Color$toHsl(c);
 	return A4(_elm_lang$core$Color$hsla, original.hue, original.saturation, original.lightness, 0.8);
 };
-var _rsbohn$codevember2016$Main$colorLike = function (ref) {
+var _rsbohn$codevember2016$C1104$colorLike = function (ref) {
 	var base = _elm_lang$core$Color$hsl(
 		_elm_lang$core$Color$toHsl(ref).hue);
 	return A3(
@@ -9476,11 +9476,11 @@ var _rsbohn$codevember2016$Main$colorLike = function (ref) {
 		A2(_elm_lang$core$Random$float, 0.4, 0.8),
 		A2(_elm_lang$core$Random$float, 0.2, 0.8));
 };
-var _rsbohn$codevember2016$Main$core = F3(
+var _rsbohn$codevember2016$C1104$core = F3(
 	function (r, col, seed) {
 		var _p0 = A2(
 			_elm_lang$core$Random$step,
-			_rsbohn$codevember2016$Main$colorLike(col),
+			_rsbohn$codevember2016$C1104$colorLike(col),
 			seed);
 		var mycolor = _p0._0;
 		var seed1 = _p0._1;
@@ -9496,16 +9496,16 @@ var _rsbohn$codevember2016$Main$core = F3(
 			(r * shift) / 10.0,
 			A2(
 				_Kwarrtz$render$Graphics_Render$solidFill,
-				_rsbohn$codevember2016$Main$translucent(mycolor),
+				_rsbohn$codevember2016$C1104$translucent(mycolor),
 				A2(_Kwarrtz$render$Graphics_Render$ellipse, r, r)));
 		return {ctor: '_Tuple2', _0: form, _1: seed2};
 	});
-var _rsbohn$codevember2016$Main$rose = F2(
+var _rsbohn$codevember2016$C1104$rose = F2(
 	function (color0, seed) {
 		var step = F2(
 			function (n, _p2) {
 				var _p3 = _p2;
-				var _p4 = A3(_rsbohn$codevember2016$Main$core, n * 30, color0, _p3._1);
+				var _p4 = A3(_rsbohn$codevember2016$C1104$core, n * 30, color0, _p3._1);
 				var circ = _p4._0;
 				var newSeed = _p4._1;
 				return {
@@ -9527,56 +9527,56 @@ var _rsbohn$codevember2016$Main$rose = F2(
 					},
 					_elm_lang$core$Native_List.range(1, 12))));
 	});
-var _rsbohn$codevember2016$Main$randomAngle = F2(
+var _rsbohn$codevember2016$C1104$randomAngle = F2(
 	function (a, b) {
 		return A2(
 			_elm_lang$core$Random$map,
 			_elm_lang$core$Basics$degrees,
 			A2(_elm_lang$core$Random$float, a, b));
 	});
-var _rsbohn$codevember2016$Main$height = 512;
-var _rsbohn$codevember2016$Main$width = 720;
-var _rsbohn$codevember2016$Main$backdrop = A2(
+var _rsbohn$codevember2016$C1104$height = 512;
+var _rsbohn$codevember2016$C1104$width = 720;
+var _rsbohn$codevember2016$C1104$backdrop = A2(
 	_Kwarrtz$render$Graphics_Render$solidFill,
 	A3(
 		_elm_lang$core$Color$hsl,
 		_elm_lang$core$Basics$degrees(8),
 		0.15,
 		0.6),
-	A2(_Kwarrtz$render$Graphics_Render$rectangle, _rsbohn$codevember2016$Main$width, _rsbohn$codevember2016$Main$height));
-var _rsbohn$codevember2016$Main$nameplate = function (s) {
+	A2(_Kwarrtz$render$Graphics_Render$rectangle, _rsbohn$codevember2016$C1104$width, _rsbohn$codevember2016$C1104$height));
+var _rsbohn$codevember2016$C1104$nameplate = function (s) {
 	return A3(
 		_Kwarrtz$render$Graphics_Render$move,
-		(-1 * _rsbohn$codevember2016$Main$width) * 0.48,
-		_rsbohn$codevember2016$Main$height * 0.48,
+		(-1 * _rsbohn$codevember2016$C1104$width) * 0.48,
+		_rsbohn$codevember2016$C1104$height * 0.48,
 		A4(_Kwarrtz$render$Graphics_Render$plain, 24, 'Arial', _elm_lang$core$Color$black, s));
 };
-var _rsbohn$codevember2016$Main$view = function (base) {
+var _rsbohn$codevember2016$C1104$view = function (base) {
 	var seed = _elm_lang$core$Random$initialSeed(base);
 	return A3(
 		_Kwarrtz$render$Graphics_Render$svg,
-		_rsbohn$codevember2016$Main$width,
-		_rsbohn$codevember2016$Main$height,
+		_rsbohn$codevember2016$C1104$width,
+		_rsbohn$codevember2016$C1104$height,
 		_Kwarrtz$render$Graphics_Render$group(
 			_elm_lang$core$Native_List.fromArray(
 				[
-					_rsbohn$codevember2016$Main$backdrop,
+					_rsbohn$codevember2016$C1104$backdrop,
 					A3(
 					_Kwarrtz$render$Graphics_Render$move,
 					-180,
 					-40,
 					A2(
-						_rsbohn$codevember2016$Main$rose,
+						_rsbohn$codevember2016$C1104$rose,
 						A3(
 							_elm_lang$core$Color$hsl,
 							_elm_lang$core$Basics$degrees(12),
 							0.5,
 							0.5),
 						seed)),
-					_rsbohn$codevember2016$Main$nameplate('C1104: Iberian Rose')
+					_rsbohn$codevember2016$C1104$nameplate('C1104: Iberian Rose')
 				])));
 };
-var _rsbohn$codevember2016$Main$main = {
+var _rsbohn$codevember2016$C1104$main = {
 	main: _elm_lang$html$Html_App$program(
 		{
 			init: {
@@ -9591,19 +9591,19 @@ var _rsbohn$codevember2016$Main$main = {
 				function (msg, model) {
 					return {
 						ctor: '_Tuple2',
-						_0: A2(_rsbohn$codevember2016$Main$update, msg, model),
+						_0: A2(_rsbohn$codevember2016$C1104$update, msg, model),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				}),
-			view: _rsbohn$codevember2016$Main$view,
+			view: _rsbohn$codevember2016$C1104$view,
 			subscriptions: function (_p5) {
 				return _elm_lang$core$Platform_Sub$none;
 			}
 		})
 };
 var Elm = {};
-Elm['Main'] = Elm['Main'] || {};
-_elm_lang$core$Native_Platform.addPublicModule(Elm['Main'], 'Main', typeof _rsbohn$codevember2016$Main$main === 'undefined' ? null : _rsbohn$codevember2016$Main$main);
+Elm['C1104'] = Elm['C1104'] || {};
+_elm_lang$core$Native_Platform.addPublicModule(Elm['C1104'], 'C1104', typeof _rsbohn$codevember2016$C1104$main === 'undefined' ? null : _rsbohn$codevember2016$C1104$main);
 
 if (typeof define === "function" && define['amd'])
 {
@@ -9634,4 +9634,4 @@ for (var publicModule in Elm)
 }
 
 }).call(this);
-</script></head><body><script type="text/javascript">Elm.Main.fullscreen()</script></body></html>
+</script></head><body><script type="text/javascript">Elm.C1104.fullscreen()</script></body></html>

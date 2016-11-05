@@ -71,7 +71,7 @@ backdrop =
 
 
 warning =
-    "Do not look directly into the lights."
+    "C1106: Do not look directly into the lights."
 
 
 view model =
@@ -86,6 +86,12 @@ view model =
                 |> group
                 |> svg CV.width 132
                 |> CV.withSourceLink "C1106.elm" warning
+
+
+
+-- next: cheer lights based on this sketch.
+-- New lights in center, older on the outside.
+-- keep a set number of colors, maybe decrease alpha as they age.
 
 
 main =
