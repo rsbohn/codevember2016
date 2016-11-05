@@ -27,6 +27,23 @@ backdrop =
     rectangle width height |> solidFill (hsl (degrees 200) 0.15 0.6)
 
 
+spread : Float -> Float -> Float -> List Float
+spread m0 m1 n =
+    let
+        delta =
+            (m1 - m0) / n
+
+        summing a b =
+            case b of
+                [] ->
+                    [ m0 ]
+
+                x :: xs ->
+                    (a + x) :: b
+    in
+        List.foldl summing [] (List.repeat (round n) delta)
+
+
 randomAngle : Float -> Float -> R.Generator Float
 randomAngle a b =
     R.map degrees (R.float a b)
@@ -123,14 +140,16 @@ view model =
         , nameplate "C1105 Carpeted Garage"
         ]
         |> svg width height
-        |> withSourceLink
+        |> withSourceLink "C1105.elm" ""
 
 
-withSourceLink graph =
-    Html.div []
+withSourceLink sketchID message graph =
+    Html.div [ Html.Attributes.style [ ( "width", (toString width) ++ "px" ) ] ]
         [ Html.div [] [ graph ]
+        , Html.div [ Html.Attributes.style [ ( "textAlign", "center" ) ] ]
+            [ Html.text message ]
         , Html.div []
-            [ Html.a [ Html.Attributes.href (baseUrl ++ "/blob/master/src/C1105.elm") ]
+            [ Html.a [ Html.Attributes.href (baseUrl ++ "/blob/master/src/" ++ sketchID) ]
                 [ Html.text "source" ]
             ]
         ]
