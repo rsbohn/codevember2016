@@ -132,4 +132,5 @@ projects =
     [ Project "C1102" "Color Wheel" "C1102.elm"
     , Project "C1103" "Battletowers" "C1103.elm"
     , Project "C1104" "Iberian Rose" "C1104.elm"
+    , Project "C1105" "Carpeted Garage" "C1105.elm"
     ]

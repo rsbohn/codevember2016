@@ -1,4 +1,4 @@
-module Main exposing (..)
+module C1104 exposing (..)
 
 import Html.App
 import Graphics.Render exposing (..)
