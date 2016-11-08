@@ -158,7 +158,7 @@ subscriptions model =
 
 
 cheerlights =
-    "http://api.thingspeak.com/channels/1417/field/2/last.txt"
+    "//api.thingspeak.com/channels/1417/field/2/last.txt"
 
 
 fetchColor =
