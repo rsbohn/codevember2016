@@ -134,4 +134,6 @@ projects =
     , Project "C1104" "Iberian Rose" "C1104.elm"
     , Project "C1105" "Carpeted Garage" "C1105.elm"
     , Project "C1106" "Do not look into the light" "C1106.elm"
+    , Project "M1107" "Cheer Lights" "M1107.elm"
+    , Project "C1108" "I voted!" "C1108.elm"
     ]
