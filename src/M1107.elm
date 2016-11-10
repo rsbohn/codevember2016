@@ -49,11 +49,12 @@ mview model =
             , spacer |> move (1 * sketch.width * 0.48) 0
             , List.indexedMap
                 (\n color ->
-                    rect 20 color
+                    rect n ( 300, color )
                         |> spiralShape n
                         |> rotate (model.frame / 20)
                 )
                 model.colors
+                |> List.reverse
                 |> group
                 |> move 80 -80
             , monitor (toString model.frame)
@@ -66,23 +67,32 @@ monitor =
     plain 24 "Source Sans Pro" Color.black
 
 
-rect size color =
-    rectangle size size |> solidFill color
+nameplate sk s =
+    plain 24 "Source Sans Pro" Color.black s
+        |> move (-1 * sk.width * 0.46) (sk.height * 0.48)
+
+
+rect n ( size, color ) =
+    let
+        q =
+            n + 1
+
+        side =
+            size / q
+    in
+        rectangle side side |> solidFill (translucent color)
 
 
 spiralShape n =
     let
-        nf =
-            toFloat n
-
         r =
-            nf * nf * 3
+            n * n * 3
 
         dx =
-            r * (cos (nf * 15 * pi / 180))
+            r * (cos (n * 15 * pi / 180))
 
         dy =
-            r * (sin (nf * 15 * pi / 180))
+            r * (sin (n * 15 * pi / 180))
     in
         move dx dy
 
