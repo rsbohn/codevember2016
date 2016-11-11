@@ -137,4 +137,5 @@ projects =
     , Project "M1107" "Cheer Lights" "M1107.elm"
     , Project "C1108" "I voted!" "C1108.elm"
     , Project "M1109" "Click and Rotate" "M1109.elm"
+    , Project "M1110" "Blinkenlights" "M1110.elm"
     ]

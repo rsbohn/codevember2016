@@ -1,5 +1,6 @@
 module M1110 exposing (..)
 
+import Bitwise exposing (and, shiftLeft)
 import Color exposing (Color, hsla, toHsl)
 import Graphics.Render exposing (..)
 import Html
@@ -20,8 +21,7 @@ type LampState
 type alias Sketch =
     { width : Float
     , height : Float
-    , lamp0 : LampState
-    , lamp1 : LampState
+    , registers : List Int
     , meter0 : Float
     , meter1 : Float
     }
@@ -30,8 +30,7 @@ type alias Sketch =
 sketch0 =
     { width = 720
     , height = 512
-    , lamp0 = Off
-    , lamp1 = Off
+    , registers = [ 0, 192 ]
     , meter0 = 0.0
     , meter1 = 0.0
     }
@@ -39,22 +38,27 @@ sketch0 =
 
 slug =
     """
-This is a thing.
+M1110 Blinkenlights by @rsbohn.
   """
 
 
 mysubs sketch =
-    Sub.none
+    Sub.batch
+        [ Time.every (1000 / 4) (always Tick) ]
 
 
 type Msg
     = Begin Sketch
+    | Tick
 
 
 update msg sketch =
     case msg of
         Begin newSketch ->
             ( newSketch, Cmd.none )
+
+        Tick ->
+            ( sketch, Random.generate Begin (nextState sketch) )
 
 
 getLampState : Bool -> LampState
@@ -65,13 +69,13 @@ getLampState a =
         Off
 
 
-state0 : Sketch -> Random.Generator Sketch
-state0 sketch =
+nextState : Sketch -> Random.Generator Sketch
+nextState sketch =
     let
-        f a b =
-            { sketch | lamp0 = getLampState a, lamp1 = getLampState b }
+        f xs =
+            { sketch | registers = xs }
     in
-        Random.map2 f Random.bool Random.bool
+        Random.map f (Random.list 8 (Random.int 0 255))
 
 
 backdrop sketch =
@@ -84,20 +88,58 @@ panel state =
         glassColor =
             case state of
                 On ->
-                    hsla (degrees 30) 1 0.8 0.2
+                    hsla (degrees 8) 1 0.8 0.4
 
                 Off ->
-                    hsla (degrees 30) 1 0.2 0.2
+                    hsla (degrees 8) 1 0.2 0.4
     in
-        rectangle 120 80 |> solidFillWithBorder glassColor 5 Color.charcoal
+        rectangle 60 40 |> solidFillWithBorder glassColor 5 Color.charcoal
+
+
+register : Int -> Form b
+register c8 =
+    let
+        decode n =
+            if (and c8 (shiftLeft 1 n)) > 0 then
+                On
+            else
+                Off
+
+        spread n items =
+            List.indexedMap
+                (\i k ->
+                    move (toFloat (i * n)) 0 k
+                )
+                items
+    in
+        [0..7]
+            |> List.reverse
+            |> List.map decode
+            |> List.map panel
+            |> spread 70
+            |> group
+
+
+rview : List Int -> List (Form b)
+rview rs =
+    List.map register rs
+        |> List.indexedMap
+            (\i k ->
+                move 0
+                    (toFloat (i * 48))
+                    k
+            )
 
 
 view : Sketch -> Html.Html Msg
 view sketch =
     group
         [ backdrop sketch
-        , panel sketch.lamp0 |> move -100 0
-        , panel sketch.lamp1 |> move 100 0
+        , M.spacer |> move (sketch.width * -0.48) 0
+        , M.spacer |> move (sketch.width * 0.48) 0
+        , rview sketch.registers
+            |> group
+            |> move (sketch.width * -0.36) -200
         ]
         |> svg sketch.width sketch.height
 
@@ -114,7 +156,7 @@ viewWithMarkup sketch =
 
 main =
     Html.App.program
-        { init = ( sketch0, Random.generate Begin (state0 sketch0) )
+        { init = ( sketch0, Random.generate Begin (nextState sketch0) )
         , update = update
         , view = viewWithMarkup
         , subscriptions = mysubs
