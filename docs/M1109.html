@@ -10910,18 +10910,20 @@ var _rsbohn$codevember2016$M1107$spacer = A2(
 		0.3),
 	A2(_Kwarrtz$render$Graphics_Render$rectangle, 12, 500));
 var _rsbohn$codevember2016$M1107$spiralShape = function (n) {
-	var nf = _elm_lang$core$Basics$toFloat(n);
-	var r = (nf * nf) * 3;
-	var dx = r * _elm_lang$core$Basics$cos(((nf * 15) * _elm_lang$core$Basics$pi) / 180);
-	var dy = r * _elm_lang$core$Basics$sin(((nf * 15) * _elm_lang$core$Basics$pi) / 180);
+	var r = (n * n) * 3;
+	var dx = r * _elm_lang$core$Basics$cos(((n * 15) * _elm_lang$core$Basics$pi) / 180);
+	var dy = r * _elm_lang$core$Basics$sin(((n * 15) * _elm_lang$core$Basics$pi) / 180);
 	return A2(_Kwarrtz$render$Graphics_Render$move, dx, dy);
 };
 var _rsbohn$codevember2016$M1107$rect = F2(
-	function (size, color) {
+	function (n, _p0) {
+		var _p1 = _p0;
+		var q = n + 1;
+		var side = _p1._0 / q;
 		return A2(
 			_Kwarrtz$render$Graphics_Render$solidFill,
-			color,
-			A2(_Kwarrtz$render$Graphics_Render$rectangle, size, size));
+			_rsbohn$codevember2016$M1107$translucent(_p1._1),
+			A2(_Kwarrtz$render$Graphics_Render$rectangle, side, side));
 	});
 var _rsbohn$codevember2016$M1107$nameplate = F2(
 	function (sk, s) {
@@ -10932,6 +10934,23 @@ var _rsbohn$codevember2016$M1107$nameplate = F2(
 			A4(_Kwarrtz$render$Graphics_Render$plain, 24, 'Source Sans Pro', _elm_lang$core$Color$black, s));
 	});
 var _rsbohn$codevember2016$M1107$monitor = A3(_Kwarrtz$render$Graphics_Render$plain, 24, 'Source Sans Pro', _elm_lang$core$Color$black);
+var _rsbohn$codevember2016$M1107$rplot = F2(
+	function (r, theta) {
+		return {
+			ctor: '_Tuple2',
+			_0: r * _elm_lang$core$Basics$cos(
+				_elm_lang$core$Basics$degrees(theta)),
+			_1: r * _elm_lang$core$Basics$sin(
+				_elm_lang$core$Basics$degrees(theta))
+		};
+	});
+var _rsbohn$codevember2016$M1107$rmove = F2(
+	function (r, theta) {
+		var _p2 = A2(_rsbohn$codevember2016$M1107$rplot, r, theta);
+		var x = _p2._0;
+		var y = _p2._1;
+		return A2(_Kwarrtz$render$Graphics_Render$move, x, y);
+	});
 var _rsbohn$codevember2016$M1107$sketch = {width: 720, height: 500, srcBaseUrl: 'https://github.com/rsbohn/codevember2016'};
 var _rsbohn$codevember2016$M1107$mview = function (model) {
 	var backdrop = A2(
@@ -10943,8 +10962,8 @@ var _rsbohn$codevember2016$M1107$mview = function (model) {
 			0.75),
 		A2(_Kwarrtz$render$Graphics_Render$rectangle, _rsbohn$codevember2016$M1107$sketch.width, _rsbohn$codevember2016$M1107$sketch.height));
 	var fill = function () {
-		var _p0 = _elm_lang$core$List$head(model.colors);
-		if (_p0.ctor === 'Nothing') {
+		var _p3 = _elm_lang$core$List$head(model.colors);
+		if (_p3.ctor === 'Nothing') {
 			return A4(
 				_elm_lang$core$Color$hsla,
 				_elm_lang$core$Basics$degrees(60),
@@ -10952,7 +10971,7 @@ var _rsbohn$codevember2016$M1107$mview = function (model) {
 				0.5,
 				0.1);
 		} else {
-			return _p0._0;
+			return _p3._0;
 		}
 	}();
 	return A3(
@@ -10970,19 +10989,23 @@ var _rsbohn$codevember2016$M1107$mview = function (model) {
 					80,
 					-80,
 					_Kwarrtz$render$Graphics_Render$group(
-						A2(
-							_elm_lang$core$List$indexedMap,
-							F2(
-								function (n, color) {
-									return A2(
-										_Kwarrtz$render$Graphics_Render$rotate,
-										model.frame / 20,
-										A2(
-											_rsbohn$codevember2016$M1107$spiralShape,
-											n,
-											A2(_rsbohn$codevember2016$M1107$rect, 20, color)));
-								}),
-							model.colors))),
+						_elm_lang$core$List$reverse(
+							A2(
+								_elm_lang$core$List$indexedMap,
+								F2(
+									function (n, color) {
+										return A2(
+											_Kwarrtz$render$Graphics_Render$rotate,
+											model.frame / 20,
+											A2(
+												_rsbohn$codevember2016$M1107$spiralShape,
+												n,
+												A2(
+													_rsbohn$codevember2016$M1107$rect,
+													n,
+													{ctor: '_Tuple2', _0: 300, _1: color})));
+									}),
+								model.colors)))),
 					A3(
 					_Kwarrtz$render$Graphics_Render$move,
 					(-1 * _rsbohn$codevember2016$M1107$sketch.width) * 0.46,
@@ -11085,8 +11108,8 @@ var _rsbohn$codevember2016$M1107$fetchCheer = A3(
 	_evancz$elm_http$Http$getString(_rsbohn$codevember2016$M1107$cheerlights));
 var _rsbohn$codevember2016$M1107$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p4 = msg;
+		switch (_p4.ctor) {
 			case 'Tick':
 				return {
 					ctor: '_Tuple2',
@@ -11098,8 +11121,8 @@ var _rsbohn$codevember2016$M1107$update = F2(
 			case 'UpdateCheer':
 				return {ctor: '_Tuple2', _0: model, _1: _rsbohn$codevember2016$M1107$fetchCheer};
 			default:
-				var _p2 = _eskimoblood$elm_color_extra$Color_Convert$hexToColor(_p1._0);
-				if (_p2.ctor === 'Nothing') {
+				var _p5 = _eskimoblood$elm_color_extra$Color_Convert$hexToColor(_p4._0);
+				if (_p5.ctor === 'Nothing') {
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
@@ -11119,7 +11142,7 @@ var _rsbohn$codevember2016$M1107$update = F2(
 								colors: A2(
 									_elm_lang$core$List$take,
 									12,
-									A2(_elm_lang$core$List_ops['::'], _p2._0, model.colors))
+									A2(_elm_lang$core$List_ops['::'], _p5._0, model.colors))
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
@@ -11168,36 +11191,19 @@ var _rsbohn$codevember2016$M1109$colorLike = function (c) {
 };
 var _rsbohn$codevember2016$M1109$bumper = '\nJust some spinning balls. View has `onclick` event handler.\n\n@rsbohn #codevember\n';
 var _rsbohn$codevember2016$M1109$transparent = A4(_elm_lang$core$Color$hsla, 0, 0, 0, 0);
+var _rsbohn$codevember2016$M1109$wires = function (r) {
+	return _elm_lang$core$Native_List.fromArray(
+		[
+			A2(_rsbohn$codevember2016$M1107$rplot, r, -90),
+			A2(_rsbohn$codevember2016$M1107$rplot, r, 30),
+			A2(_rsbohn$codevember2016$M1107$rplot, r, 150)
+		]);
+};
 var _rsbohn$codevember2016$M1109$about = F2(
 	function (frame, theta) {
 		return _elm_lang$core$Basics$toFloat(
 			A2(_elm_lang$core$Basics_ops['%'], frame, 120)) + theta;
 	});
-var _rsbohn$codevember2016$M1109$rplot = F2(
-	function (r, theta) {
-		return {
-			ctor: '_Tuple2',
-			_0: r * _elm_lang$core$Basics$cos(
-				_elm_lang$core$Basics$degrees(theta)),
-			_1: r * _elm_lang$core$Basics$sin(
-				_elm_lang$core$Basics$degrees(theta))
-		};
-	});
-var _rsbohn$codevember2016$M1109$rmove = F2(
-	function (r, theta) {
-		var _p0 = A2(_rsbohn$codevember2016$M1109$rplot, r, theta);
-		var x = _p0._0;
-		var y = _p0._1;
-		return A2(_Kwarrtz$render$Graphics_Render$move, x, y);
-	});
-var _rsbohn$codevember2016$M1109$wires = function (r) {
-	return _elm_lang$core$Native_List.fromArray(
-		[
-			A2(_rsbohn$codevember2016$M1109$rplot, r, -90),
-			A2(_rsbohn$codevember2016$M1109$rplot, r, 30),
-			A2(_rsbohn$codevember2016$M1109$rplot, r, 150)
-		]);
-};
 var _rsbohn$codevember2016$M1109$sketch = {width: 720, height: 512};
 var _rsbohn$codevember2016$M1109$backdrop = A2(
 	_Kwarrtz$render$Graphics_Render$solidFill,
@@ -11233,7 +11239,7 @@ var _rsbohn$codevember2016$M1109$view = function (model) {
 							model.color,
 							A2(_Kwarrtz$render$Graphics_Render$ellipse, 78, 78)),
 							A3(
-							_rsbohn$codevember2016$M1109$rmove,
+							_rsbohn$codevember2016$M1107$rmove,
 							160,
 							A2(_rsbohn$codevember2016$M1109$about, model.frame, 150),
 							A2(
@@ -11241,7 +11247,7 @@ var _rsbohn$codevember2016$M1109$view = function (model) {
 								_elm_lang$core$Color$green,
 								A2(_Kwarrtz$render$Graphics_Render$ellipse, 80, 80))),
 							A3(
-							_rsbohn$codevember2016$M1109$rmove,
+							_rsbohn$codevember2016$M1107$rmove,
 							160,
 							A2(_rsbohn$codevember2016$M1109$about, model.frame, -90),
 							A2(
@@ -11249,7 +11255,7 @@ var _rsbohn$codevember2016$M1109$view = function (model) {
 								_elm_lang$core$Color$green,
 								A2(_Kwarrtz$render$Graphics_Render$ellipse, 80, 80))),
 							A3(
-							_rsbohn$codevember2016$M1109$rmove,
+							_rsbohn$codevember2016$M1107$rmove,
 							160,
 							A2(_rsbohn$codevember2016$M1109$about, model.frame, 30),
 							A2(
@@ -11291,8 +11297,8 @@ var _rsbohn$codevember2016$M1109$Splash = function (a) {
 };
 var _rsbohn$codevember2016$M1109$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
 			case 'Tick':
 				return {
 					ctor: '_Tuple2',
@@ -11306,7 +11312,7 @@ var _rsbohn$codevember2016$M1109$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{color: _p1._0}),
+						{color: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
@@ -11334,7 +11340,7 @@ var _rsbohn$codevember2016$M1109$main = {
 			},
 			update: _rsbohn$codevember2016$M1109$update,
 			view: _rsbohn$codevember2016$M1109$view,
-			subscriptions: function (_p2) {
+			subscriptions: function (_p1) {
 				return A2(
 					_elm_lang$core$Time$every,
 					1000 / 30,
