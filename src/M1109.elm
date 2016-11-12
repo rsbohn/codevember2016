@@ -16,28 +16,14 @@ sketch =
     { width = 720, height = 512 }
 
 
-rplot r theta =
-    ( (r * (cos (degrees theta)))
-    , (r * (sin (degrees theta)))
-    )
-
-
-rmove r theta =
-    let
-        ( x, y ) =
-            rplot r theta
-    in
-        move x y
-
-
 about frame theta =
     (toFloat (frame % 120)) + theta
 
 
 wires r =
-    [ (rplot r -90)
-    , (rplot r 30)
-    , (rplot r 150)
+    [ (M.rplot r -90)
+    , (M.rplot r 30)
+    , (M.rplot r 150)
     ]
 
 
@@ -56,9 +42,9 @@ view model =
             , M.spacer |> move (-1 * sketch.width * 0.48) 0
             , M.spacer |> move (1 * sketch.width * 0.48) 0
             , ellipse 78 78 |> solidFill model.color
-            , ellipse 80 80 |> solidFill Color.green |> rmove 160 (about model.frame 150)
-            , ellipse 80 80 |> solidFill Color.green |> rmove 160 (about model.frame -90)
-            , ellipse 80 80 |> solidFill Color.green |> rmove 160 (about model.frame 30)
+            , ellipse 80 80 |> solidFill Color.green |> M.rmove 160 (about model.frame 150)
+            , ellipse 80 80 |> solidFill Color.green |> M.rmove 160 (about model.frame -90)
+            , ellipse 80 80 |> solidFill Color.green |> M.rmove 160 (about model.frame 30)
             , polygon (wires 160)
                 |> solidFillWithBorder transparent 5 Color.charcoal
                 |> rotate (degrees (about model.frame 0))

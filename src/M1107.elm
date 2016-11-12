@@ -28,6 +28,20 @@ type alias Model =
     }
 
 
+rplot r theta =
+    ( (r * (cos (degrees theta)))
+    , (r * (sin (degrees theta)))
+    )
+
+
+rmove r theta =
+    let
+        ( x, y ) =
+            rplot r theta
+    in
+        move x y
+
+
 mview : Model -> Html msg
 mview model =
     let
