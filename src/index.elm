@@ -139,4 +139,5 @@ projects =
     , Project "M1109" "Click and Rotate" "M1109.elm"
     , Project "M1110" "Blinkenlights" "M1110.elm"
     , Project "M1112" "Pencil Rain" "M1112.elm"
+    , Project "T1115" "Fort Kearny Medic pt I" "M1115.elm"
     ]

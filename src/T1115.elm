@@ -100,7 +100,7 @@ randomMalady =
     Random.Extra.choices <|
         List.map Random.Extra.constant
             [ Illness { name = "Influenza", duration = (Days 8), symptoms = [ "fever", "body ache", "congestion" ] }
-            , Illness { name = "Cholera", duration = (Days 4), symptoms = [ "icky" ] }
+            , Illness { name = "Cholera", duration = (Days 4), symptoms = [ "severe diarrhea", "vomiting", "lethargy", "abdominal pain" ] }
             , Injury { name = "gunshot wound", description = "bullet hole, bleeding" }
             , Injury { name = "mauled by a bear", description = "claw marks, lacerations, bleeding" }
             , Injury { name = "broken arm", description = "redness, swelling, unnatural position of arm" }
