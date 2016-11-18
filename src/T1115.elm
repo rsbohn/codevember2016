@@ -104,6 +104,7 @@ randomMalady =
             , Injury { name = "gunshot wound", description = "bullet hole, bleeding" }
             , Injury { name = "mauled by a bear", description = "claw marks, lacerations, bleeding" }
             , Injury { name = "broken arm", description = "redness, swelling, unnatural position of arm" }
+            , Healthy
             , Dead
             ]
 
@@ -137,6 +138,9 @@ describeHealth person =
 
         Injury i ->
             i.description
+
+        Dead ->
+            "No pulse."
 
         _ ->
             "No obvious problems."
