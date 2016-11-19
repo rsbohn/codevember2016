@@ -17,32 +17,61 @@ type alias Person =
     { name : String
     , age : Float
     , health : H.Condition
+    , vitality : Float
     }
 
 
+hospitalSize =
+    12
+
+
 m0 =
-    (Just (Person "Luigi" 29 H.Healthy))
-        :: List.repeat 5 Nothing
+    (Just (Person "Luigi" 29 H.Healthy 1.0))
+        :: List.repeat (hospitalSize - 1) Nothing
 
 
-bedStyle =
-    [ HA.style
-        [ ( "border", "solid 3px #888" )
-        , ( "marginTop", "4px" )
-        , ( "flexGrow", "1" )
-        , ( "flexBasis", "30%" )
-        , ( "height", "120px" )
-        ]
-    ]
+asHsl : Float -> String
+asHsl x =
+    "hsl(" ++ (toString (round (x * 120.0))) ++ ",40%,80%)"
+
+
+bedStyle health =
+    let
+        base =
+            [ ( "flexGrow", "1" )
+            , ( "flexBasis", "30%" )
+            , ( "border", "solid 3px #888" )
+            , ( "height", "120px" )
+            , ( "marginTop", "4px" )
+            ]
+
+        vit =
+            0.2
+    in
+        case health of
+            Nothing ->
+                [ HA.style base ]
+
+            Just (H.Dead) ->
+                [ HA.style <| ( "background", "#222" ) :: ( "color", "white" ) :: base ]
+
+            Just (H.Healthy) ->
+                [ HA.style <| ( "background", "silver" ) :: base ]
+
+            Just (H.Injury _) ->
+                [ HA.style <| ( "background", "hsl(30,80%,60%)" ) :: base ]
+
+            _ ->
+                [ HA.style <| ( "background", "hsl(60,80%,60%)" ) :: base ]
 
 
 viewPerson patient =
     case patient of
         Nothing ->
-            Html.div bedStyle [ Html.text "empty bed" ]
+            Html.div (bedStyle Nothing) [ Html.text "empty bed" ]
 
         Just patient ->
-            Html.div bedStyle
+            Html.div (bedStyle (Just patient.health))
                 [ Html.div [ HA.style [ ( "fontWeight", "800" ) ] ]
                     [ Html.text (patient.name ++ " " ++ (toString (round patient.age))) ]
                 , Html.div [] [ Html.text ("Symptoms: " ++ (H.describeHealth patient)) ]
@@ -76,12 +105,12 @@ type Msg
 
 mysubs _ =
     Sub.batch
-        [ Time.every (1000 * 10) (always Tick)
+        [ Time.every (1000 * 5) (always Tick)
         ]
 
 
-undertaker : Maybe Person -> Maybe Person
-undertaker person =
+checkout : Maybe Person -> Maybe Person
+checkout person =
     case person of
         Nothing ->
             Nothing
@@ -91,22 +120,65 @@ undertaker person =
                 H.Dead ->
                     Nothing
 
+                H.Healthy ->
+                    Nothing
+
                 _ ->
                     person
+
+
+isNothing a =
+    case a of
+        Nothing ->
+            True
+
+        _ ->
+            False
+
+
+hasEmptyBed model =
+    case List.filter isNothing model of
+        [] ->
+            False
+
+        _ ->
+            True
+
+
+takeNextBed : Person -> Model -> Model
+takeNextBed person model =
+    let
+        fillBed ss m =
+            case m of
+                [] ->
+                    model
+
+                p :: ps ->
+                    if isNothing p then
+                        List.append ss (Just (person) :: ps)
+                    else
+                        fillBed (List.append ss [ p ]) ps
+    in
+        fillBed [] model
 
 
 update msg model =
     case msg of
         Tick ->
-            ( model, Random.generate NewPerson randomPerson )
-
-        NewPerson p ->
             let
-                m =
-                    List.take 6 (Just p :: model)
-                        |> List.map undertaker
+                cleaned =
+                    List.map checkout model
             in
-                ( m, Cmd.none )
+                if hasEmptyBed cleaned then
+                    ( cleaned, Random.generate NewPerson randomPerson )
+                else
+                    ( cleaned, Cmd.none )
+
+        NewPerson person ->
+            case person.health of
+                --Dead -> (model, Cmd.none)
+                _ ->
+                    ( takeNextBed person model, Cmd.none )
 
         CheckHealth ->
             ( model, Cmd.none )
@@ -116,7 +188,7 @@ randomPerson : Random.Generator Person
 randomPerson =
     let
         it k name malady =
-            { name = name, age = (k * 20 + 5), health = malady }
+            { name = name, age = (k * 20 + 5), health = malady, vitality = 0.78 }
     in
         Random.map3 it (Random.float 0 1) P.nextName H.randomMalady
 
