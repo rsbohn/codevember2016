@@ -29,8 +29,9 @@ bedStyle =
     [ HA.style
         [ ( "border", "solid 3px #888" )
         , ( "marginTop", "4px" )
-        , ( "width", "300px" )
-          -- add flexbox
+        , ( "flexGrow", "1" )
+        , ( "flexBasis", "30%" )
+        , ( "height", "120px" )
         ]
     ]
 
@@ -43,17 +44,27 @@ viewPerson patient =
         Just patient ->
             Html.div bedStyle
                 [ Html.div [ HA.style [ ( "fontWeight", "800" ) ] ]
-                    [ Html.text patient.name ]
+                    [ Html.text (patient.name ++ " " ++ (toString (round patient.age))) ]
                 , Html.div [] [ Html.text ("Symptoms: " ++ (H.describeHealth patient)) ]
                 , Html.div [] [ Html.text ("Diagnosis: " ++ (H.diagnose patient)) ]
                   --, Html.div [] [ Html.text (toString patient) ]
                 ]
 
 
+sourceLink =
+    let
+        href =
+            "https://github.com/rsbohn/codevember2016/blob/master/src/FortKearny.elm"
+    in
+        Html.a [ HA.href href ] [ Html.text "(source)" ]
+
+
 view model =
     Html.div []
-        [ Html.h1 [] [ Html.text "Fort Kearny Hospital" ]
-        , Html.div [] <| List.map viewPerson model
+        [ Html.h1 [] [ Html.text "Fort Kearny Hospital 1849" ]
+        , Html.div [ HA.style [ ( "display", "flex" ), ( "flexFlow", "row wrap" ), ( "flexWrap", "ltr" ) ] ] <|
+            List.map viewPerson model
+        , Html.div [] [ sourceLink ]
         ]
 
 
