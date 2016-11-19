@@ -100,7 +100,7 @@ view model =
 type Msg
     = Tick
     | NewPerson Person
-    | CheckHealth
+    | CheckHealth (List Dots)
 
 
 mysubs _ =
@@ -109,8 +109,8 @@ mysubs _ =
         ]
 
 
-checkout : Maybe Person -> Maybe Person
-checkout person =
+assess : Maybe Person -> Maybe Person
+assess person =
     case person of
         Nothing ->
             Nothing
@@ -162,17 +162,37 @@ takeNextBed person model =
         fillBed [] model
 
 
+heal : Maybe Person -> Dots -> Maybe Person
+heal person ( better, choise ) =
+    case person of
+        Nothing ->
+            Nothing
+
+        Just p ->
+            if better < 0.01 then
+                Just ({ p | health = H.Dead })
+            else if better > 0.9 then
+                Just ({ p | health = H.Healthy })
+            else
+                person
+
+
 update msg model =
     case msg of
         Tick ->
             let
                 cleaned =
-                    List.map checkout model
+                    List.map assess model
             in
                 if hasEmptyBed cleaned then
-                    ( cleaned, Random.generate NewPerson randomPerson )
+                    ( cleaned
+                    , Cmd.batch
+                        [ Random.generate NewPerson randomPerson
+                        , Random.generate CheckHealth randomProgress
+                        ]
+                    )
                 else
-                    ( cleaned, Cmd.none )
+                    ( cleaned, Random.generate CheckHealth randomProgress )
 
         NewPerson person ->
             case person.health of
@@ -180,8 +200,9 @@ update msg model =
                 _ ->
                     ( takeNextBed person model, Cmd.none )
 
-        CheckHealth ->
-            ( model, Cmd.none )
+        CheckHealth package ->
+            -- apply the package to the model
+            ( List.map2 heal model package, Cmd.none )
 
 
 randomPerson : Random.Generator Person
@@ -191,6 +212,15 @@ randomPerson =
             { name = name, age = (k * 20 + 5), health = malady, vitality = 0.78 }
     in
         Random.map3 it (Random.float 0 1) P.nextName H.randomMalady
+
+
+type alias Dots =
+    ( Float, Float )
+
+
+randomProgress : Random.Generator (List (Dots))
+randomProgress =
+    Random.list hospitalSize (Random.pair (Random.float 0 1) (Random.float 0 1))
 
 
 main =
