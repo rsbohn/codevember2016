@@ -39,9 +39,17 @@ randomMalady =
         List.map Random.Extra.constant
             [ Illness { name = "Influenza", duration = (Days 8), symptoms = [ "fever", "body ache", "congestion" ] }
             , Illness { name = "Cholera", duration = (Days 4), symptoms = [ "severe diarrhea", "vomiting", "lethargy", "abdominal pain" ] }
+            , Illness { name = "Typhus", duration = (Days 12), symptoms = [ "headache", "high fever", "belly pain", "diarrhea" ] }
+            , Illness { name = "Enteric fever", duration = (Days 14), symptoms = [ "headache", "high fever", "belly pain", "constipation" ] }
+            , Illness { name = "Tetanus", duration = (Days 7), symptoms = [ "muscle spasms", "difficulty breathing" ] }
             , Injury { name = "gunshot wound", description = "bullet hole, bleeding" }
             , Injury { name = "mauled by a bear", description = "claw marks, lacerations, bleeding" }
             , Injury { name = "broken arm", description = "redness, swelling, unnatural position of arm" }
+            , Injury { name = "snake bite", description = "paired puncture wounds, swelling, difficulty breathing" }
+            , Injury { name = "scalped", description = "removal of scalp, bleeding" }
+            , Injury { name = "kicked by mule", description = "broken bones, contusions" }
+            , Injury { name = "hypothermia", description = "confusion, weakness, shivering" }
+            , Injury { name = "heat exhaustion", description = "dizziness, fatigue, nausea, confusion, dark urine" }
             , Healthy
             , Dead
             ]
