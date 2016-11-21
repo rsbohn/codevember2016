@@ -1,10 +1,11 @@
 module Main exposing (..)
 
-import People as P
+import Css exposing (..)
 import Health as H
 import Html
 import Html.App
 import Html.Attributes as HA
+import People as P
 import Random
 import Time
 
@@ -35,34 +36,35 @@ asHsl x =
     "hsl(" ++ (toString (round (x * 120.0))) ++ ",40%,80%)"
 
 
+styles =
+    Css.asPairs >> HA.style
+
+
 bedStyle health =
     let
         base =
-            [ ( "flexGrow", "1" )
-            , ( "flexBasis", "30%" )
-            , ( "border", "solid 3px #888" )
-            , ( "height", "120px" )
-            , ( "marginTop", "4px" )
+            [ flexGrow (int 1)
+            , flexBasis (pct 30)
+            , border3 (px 3) solid (hex "888")
+            , height (px 120)
+            , marginTop (px 4)
             ]
-
-        vit =
-            0.2
     in
         case health of
             Nothing ->
-                [ HA.style base ]
+                [ styles base ]
 
             Just (H.Dead) ->
-                [ HA.style <| ( "background", "#222" ) :: ( "color", "white" ) :: base ]
+                [ styles <| [ backgroundColor (hex "222"), color (hsl 0 0 1) ] ++ base ]
 
             Just (H.Healthy) ->
-                [ HA.style <| ( "background", "silver" ) :: base ]
+                [ styles <| [ backgroundColor (hex "EEE") ] ++ base ]
 
             Just (H.Injury _) ->
-                [ HA.style <| ( "background", "hsl(30,80%,60%)" ) :: base ]
+                [ styles <| [ backgroundColor (hsl 30 0.8 0.6) ] ++ base ]
 
             _ ->
-                [ HA.style <| ( "background", "hsl(60,80%,60%)" ) :: base ]
+                [ styles <| [ backgroundColor (hsl 60 0.8 0.6) ] ++ base ]
 
 
 viewPerson patient =
@@ -72,7 +74,7 @@ viewPerson patient =
 
         Just patient ->
             Html.div (bedStyle (Just patient.health))
-                [ Html.div [ HA.style [ ( "fontWeight", "800" ) ] ]
+                [ Html.div [ styles [ fontWeight (int 800) ] ]
                     [ Html.text (patient.name ++ " " ++ (toString (round patient.age))) ]
                 , Html.div [] [ Html.text ("Symptoms: " ++ (H.describeHealth patient)) ]
                 , Html.div [] [ Html.text ("Diagnosis: " ++ (H.diagnose patient)) ]
@@ -89,12 +91,16 @@ sourceLink =
 
 
 view model =
-    Html.div []
-        [ Html.h1 [] [ Html.text "Fort Kearny Hospital 1849" ]
-        , Html.div [ HA.style [ ( "display", "flex" ), ( "flexFlow", "row wrap" ), ( "flexWrap", "ltr" ) ] ] <|
-            List.map viewPerson model
-        , Html.div [] [ sourceLink ]
-        ]
+    let
+        myflexbox =
+            styles [ displayFlex, flexDirection row, flexWrap wrap ]
+    in
+        Html.div []
+            [ Html.h1 [] [ Html.text "Fort Kearny Hospital 1849" ]
+            , Html.div [ myflexbox ] <|
+                List.map viewPerson model
+            , Html.div [] [ sourceLink ]
+            ]
 
 
 type Msg
