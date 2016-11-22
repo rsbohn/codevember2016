@@ -11400,6 +11400,8 @@ var _rsbohn$codevember2016$T1115$describeHealth = function (person) {
 			return _elm_lang$core$Basics$toString(_p1._0.symptoms);
 		case 'Injury':
 			return _p1._0.description;
+		case 'Dead':
+			return 'No pulse.';
 		default:
 			return 'No obvious problems.';
 	}
@@ -11549,6 +11551,7 @@ var _rsbohn$codevember2016$T1115$randomMalady = _elm_community$random_extra$Rand
 				{name: 'mauled by a bear', description: 'claw marks, lacerations, bleeding'}),
 				_rsbohn$codevember2016$T1115$Injury(
 				{name: 'broken arm', description: 'redness, swelling, unnatural position of arm'}),
+				_rsbohn$codevember2016$T1115$Healthy,
 				_rsbohn$codevember2016$T1115$Dead
 			])));
 var _rsbohn$codevember2016$T1115$randomPerson = function () {

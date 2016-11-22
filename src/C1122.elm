@@ -57,7 +57,7 @@ viewSketch : Model -> Html Msg
 viewSketch model =
     [ ellipse 180 180 |> solidFillWithBorder (hsla 0 0 0 0) 2 (hsla 0 0 0.2 1)
     , List.map (box 1) model.points |> group |> rotx model.rotation
-    , List.map (box 2) model.points |> group |> rotx (40 + model.rotation)
+    , List.map (box 2) model.points |> group |> rotx (40 - model.rotation)
     ]
         |> group
         |> svg 720 512
