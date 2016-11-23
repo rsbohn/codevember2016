@@ -51,8 +51,7 @@ viewSketch model =
     , [-4..4]
         |> List.indexedMap (\n p -> box 1 ( p * 42, (sin (toFloat (n + model.frame) / 4)) * 120 ))
         |> group
-      --    , List.map (box 1) model.points |> group |> rotx model.rotation
-      --    , List.map (box 2) model.points |> group |> rotx (40 - model.rotation)
+        |> rotx (40 - model.frame)
     ]
         |> group
         |> svg 720 512

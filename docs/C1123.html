@@ -13836,22 +13836,25 @@ var _rsbohn$codevember2016$C1123$viewSketch = function (model) {
 					2,
 					A4(_elm_lang$core$Color$hsla, 0, 0, 0.2, 1),
 					A2(_Kwarrtz$render$Graphics_Render$ellipse, 180, 180)),
-					_Kwarrtz$render$Graphics_Render$group(
 					A2(
-						_elm_lang$core$List$indexedMap,
-						F2(
-							function (n, p) {
-								return A2(
-									_rsbohn$codevember2016$C1123$box,
-									1,
-									{
-										ctor: '_Tuple2',
-										_0: p * 42,
-										_1: _elm_lang$core$Basics$sin(
-											_elm_lang$core$Basics$toFloat(n + model.frame) / 4) * 120
-									});
-							}),
-						_elm_lang$core$Native_List.range(-4, 4)))
+					_rsbohn$codevember2016$C1123$rotx,
+					40 - model.frame,
+					_Kwarrtz$render$Graphics_Render$group(
+						A2(
+							_elm_lang$core$List$indexedMap,
+							F2(
+								function (n, p) {
+									return A2(
+										_rsbohn$codevember2016$C1123$box,
+										1,
+										{
+											ctor: '_Tuple2',
+											_0: p * 42,
+											_1: _elm_lang$core$Basics$sin(
+												_elm_lang$core$Basics$toFloat(n + model.frame) / 4) * 120
+										});
+								}),
+							_elm_lang$core$Native_List.range(-4, 4))))
 				])));
 };
 var _rsbohn$codevember2016$C1123$view = function (model) {
