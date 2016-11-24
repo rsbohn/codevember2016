@@ -140,4 +140,7 @@ projects =
     , Project "M1110" "Blinkenlights" "M1110.elm"
     , Project "M1112" "Pencil Rain" "M1112.elm"
     , Project "T1115" "Fort Kearny Medic pt I" "M1115.elm"
+    , Project "C1122" "Birthday Wishes" "C1122.elm"
+    , Project "C1123" "The Worm" "C1123.elm"
+    , Project "C1124" "Double Infinity" "C1124.elm"
     ]

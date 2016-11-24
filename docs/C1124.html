@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>C1123</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>C1124</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -13796,7 +13796,7 @@ var _rtfeldman$elm_css$Css$IntentionallyUnsupportedPleaseSeeDocs = {ctor: 'Inten
 var _rtfeldman$elm_css$Css$thin = _rtfeldman$elm_css$Css$IntentionallyUnsupportedPleaseSeeDocs;
 var _rtfeldman$elm_css$Css$thick = _rtfeldman$elm_css$Css$IntentionallyUnsupportedPleaseSeeDocs;
 var _rtfeldman$elm_css$Css$blink = _rtfeldman$elm_css$Css$IntentionallyUnsupportedPleaseSeeDocs;
-var _rsbohn$codevember2016$C1123$tstyle = _elm_lang$html$Html_Attributes$style(
+var _rsbohn$codevember2016$C1124$tstyle = _elm_lang$html$Html_Attributes$style(
 	_rtfeldman$elm_css$Css$asPairs(
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -13806,18 +13806,18 @@ var _rsbohn$codevember2016$C1123$tstyle = _elm_lang$html$Html_Attributes$style(
 				_rtfeldman$elm_css$Css$px(720)),
 				_rtfeldman$elm_css$Css$textAlign(_rtfeldman$elm_css$Css$center)
 			])));
-var _rsbohn$codevember2016$C1123$cyclic = F2(
+var _rsbohn$codevember2016$C1124$cyclic = F2(
 	function (m, theta) {
 		var r = 2 + ((2 * _elm_lang$core$Basics$cos(2 * theta)) * m);
 		var x = r * _elm_lang$core$Basics$cos(theta);
 		var y = r * _elm_lang$core$Basics$sin(theta);
 		return {ctor: '_Tuple2', _0: x, _1: y};
 	});
-var _rsbohn$codevember2016$C1123$rotx = function (theta) {
+var _rsbohn$codevember2016$C1124$rotx = function (theta) {
 	var t = _elm_lang$core$Basics$toFloat(theta);
 	return _Kwarrtz$render$Graphics_Render$rotate((t * _elm_lang$core$Basics$pi) / 60);
 };
-var _rsbohn$codevember2016$C1123$box = F2(
+var _rsbohn$codevember2016$C1124$box = F2(
 	function (hue, _p0) {
 		var _p1 = _p0;
 		return A3(
@@ -13829,26 +13829,26 @@ var _rsbohn$codevember2016$C1123$box = F2(
 				A4(_elm_lang$core$Color$hsla, (hue * _elm_lang$core$Basics$pi) / 6, 1, 0.5, 0.2),
 				A2(_Kwarrtz$render$Graphics_Render$ellipse, 10, 10)));
 	});
-var _rsbohn$codevember2016$C1123$sketch = function (model) {
-	var n = 128;
+var _rsbohn$codevember2016$C1124$sketch = function (model) {
+	var n = 64;
 	var m = 80 - (_elm_lang$core$Basics$sin(
-		_elm_lang$core$Basics$toFloat(model.frame) / 8) * 20);
+		_elm_lang$core$Basics$toFloat(model.frame) / 8) * 10);
 	var figure = function (i) {
 		return A2(
-			_rsbohn$codevember2016$C1123$box,
+			_rsbohn$codevember2016$C1124$box,
 			1,
-			A2(_rsbohn$codevember2016$C1123$cyclic, m, ((i / n) * 2) * _elm_lang$core$Basics$pi));
+			A2(_rsbohn$codevember2016$C1124$cyclic, m, (_elm_lang$core$Basics$pi * i) / n));
 	};
 	return A2(
-		_rsbohn$codevember2016$C1123$rotx,
+		_rsbohn$codevember2016$C1124$rotx,
 		model.frame,
 		_Kwarrtz$render$Graphics_Render$group(
 			A2(
 				_elm_lang$core$List$map,
 				figure,
-				_elm_lang$core$Native_List.range(0, n))));
+				_elm_lang$core$Native_List.range(0 - n, n))));
 };
-var _rsbohn$codevember2016$C1123$viewSketch = function (model) {
+var _rsbohn$codevember2016$C1124$viewSketch = function (model) {
 	return A3(
 		_Kwarrtz$render$Graphics_Render$svg,
 		720,
@@ -13862,10 +13862,10 @@ var _rsbohn$codevember2016$C1123$viewSketch = function (model) {
 					2,
 					A4(_elm_lang$core$Color$hsla, 0, 0, 0.2, 1),
 					A2(_Kwarrtz$render$Graphics_Render$ellipse, 180, 180)),
-					_rsbohn$codevember2016$C1123$sketch(model)
+					_rsbohn$codevember2016$C1124$sketch(model)
 				])));
 };
-var _rsbohn$codevember2016$C1123$view = function (model) {
+var _rsbohn$codevember2016$C1124$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -13878,19 +13878,19 @@ var _rsbohn$codevember2016$C1123$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_rsbohn$codevember2016$C1123$viewSketch(model)
+						_rsbohn$codevember2016$C1124$viewSketch(model)
 					])),
 				A2(
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
-					[_rsbohn$codevember2016$C1123$tstyle]),
+					[_rsbohn$codevember2016$C1124$tstyle]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text('Codevember C1123')
+						_elm_lang$html$Html$text('Codevember C1124')
 					]))
 			]));
 };
-var _rsbohn$codevember2016$C1123$update = F2(
+var _rsbohn$codevember2016$C1124$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		return {
@@ -13901,29 +13901,29 @@ var _rsbohn$codevember2016$C1123$update = F2(
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	});
-var _rsbohn$codevember2016$C1123$m0 = {frame: 0};
-var _rsbohn$codevember2016$C1123$Model = function (a) {
+var _rsbohn$codevember2016$C1124$m0 = {frame: 0};
+var _rsbohn$codevember2016$C1124$Model = function (a) {
 	return {frame: a};
 };
-var _rsbohn$codevember2016$C1123$Tick = {ctor: 'Tick'};
-var _rsbohn$codevember2016$C1123$mysubs = function (model) {
+var _rsbohn$codevember2016$C1124$Tick = {ctor: 'Tick'};
+var _rsbohn$codevember2016$C1124$mysubs = function (model) {
 	return A2(
 		_elm_lang$core$Time$every,
 		1000 / 12,
-		_elm_lang$core$Basics$always(_rsbohn$codevember2016$C1123$Tick));
+		_elm_lang$core$Basics$always(_rsbohn$codevember2016$C1124$Tick));
 };
-var _rsbohn$codevember2016$C1123$main = {
+var _rsbohn$codevember2016$C1124$main = {
 	main: _elm_lang$html$Html_App$program(
 		{
-			init: {ctor: '_Tuple2', _0: _rsbohn$codevember2016$C1123$m0, _1: _elm_lang$core$Platform_Cmd$none},
-			update: _rsbohn$codevember2016$C1123$update,
-			view: _rsbohn$codevember2016$C1123$view,
-			subscriptions: _rsbohn$codevember2016$C1123$mysubs
+			init: {ctor: '_Tuple2', _0: _rsbohn$codevember2016$C1124$m0, _1: _elm_lang$core$Platform_Cmd$none},
+			update: _rsbohn$codevember2016$C1124$update,
+			view: _rsbohn$codevember2016$C1124$view,
+			subscriptions: _rsbohn$codevember2016$C1124$mysubs
 		})
 };
 var Elm = {};
-Elm['C1123'] = Elm['C1123'] || {};
-_elm_lang$core$Native_Platform.addPublicModule(Elm['C1123'], 'C1123', typeof _rsbohn$codevember2016$C1123$main === 'undefined' ? null : _rsbohn$codevember2016$C1123$main);
+Elm['C1124'] = Elm['C1124'] || {};
+_elm_lang$core$Native_Platform.addPublicModule(Elm['C1124'], 'C1124', typeof _rsbohn$codevember2016$C1124$main === 'undefined' ? null : _rsbohn$codevember2016$C1124$main);
 
 if (typeof define === "function" && define['amd'])
 {
@@ -13954,4 +13954,4 @@ for (var publicModule in Elm)
 }
 
 }).call(this);
-</script></head><body><script type="text/javascript">Elm.C1123.fullscreen()</script></body></html>
+</script></head><body><script type="text/javascript">Elm.C1124.fullscreen()</script></body></html>
