@@ -42,8 +42,8 @@ rotx theta =
         rotate (t * pi / 60)
 
 
-viewSketch : Model -> Html Msg
-viewSketch model =
+viewSketch1123 : Model -> Html Msg
+viewSketch1123 model =
     [ ellipse 180 180
         |> solidFillWithBorder (hsla 0 0 0 0)
             2
@@ -68,7 +68,7 @@ tstyle =
 
 view model =
     Html.div []
-        [ Html.div [] [ (viewSketch model) ]
+        [ Html.div [] [ (viewSketch1123 model) ]
         , Html.div [ tstyle ] [ Html.text "Codevember C1123" ]
         ]
 

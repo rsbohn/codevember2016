@@ -13806,13 +13806,6 @@ var _rsbohn$codevember2016$C1123$tstyle = _elm_lang$html$Html_Attributes$style(
 				_rtfeldman$elm_css$Css$px(720)),
 				_rtfeldman$elm_css$Css$textAlign(_rtfeldman$elm_css$Css$center)
 			])));
-var _rsbohn$codevember2016$C1123$cyclic = F2(
-	function (m, theta) {
-		var r = 2 + ((2 * _elm_lang$core$Basics$cos(2 * theta)) * m);
-		var x = r * _elm_lang$core$Basics$cos(theta);
-		var y = r * _elm_lang$core$Basics$sin(theta);
-		return {ctor: '_Tuple2', _0: x, _1: y};
-	});
 var _rsbohn$codevember2016$C1123$rotx = function (theta) {
 	var t = _elm_lang$core$Basics$toFloat(theta);
 	return _Kwarrtz$render$Graphics_Render$rotate((t * _elm_lang$core$Basics$pi) / 60);
@@ -13827,28 +13820,9 @@ var _rsbohn$codevember2016$C1123$box = F2(
 			A2(
 				_Kwarrtz$render$Graphics_Render$solidFill,
 				A4(_elm_lang$core$Color$hsla, (hue * _elm_lang$core$Basics$pi) / 6, 1, 0.5, 0.2),
-				A2(_Kwarrtz$render$Graphics_Render$ellipse, 10, 10)));
+				A2(_Kwarrtz$render$Graphics_Render$rectangle, 80, 80)));
 	});
-var _rsbohn$codevember2016$C1123$sketch = function (model) {
-	var n = 128;
-	var m = 80 - (_elm_lang$core$Basics$sin(
-		_elm_lang$core$Basics$toFloat(model.frame) / 8) * 20);
-	var figure = function (i) {
-		return A2(
-			_rsbohn$codevember2016$C1123$box,
-			1,
-			A2(_rsbohn$codevember2016$C1123$cyclic, m, ((i / n) * 2) * _elm_lang$core$Basics$pi));
-	};
-	return A2(
-		_rsbohn$codevember2016$C1123$rotx,
-		model.frame,
-		_Kwarrtz$render$Graphics_Render$group(
-			A2(
-				_elm_lang$core$List$map,
-				figure,
-				_elm_lang$core$Native_List.range(0, n))));
-};
-var _rsbohn$codevember2016$C1123$viewSketch = function (model) {
+var _rsbohn$codevember2016$C1123$viewSketch1123 = function (model) {
 	return A3(
 		_Kwarrtz$render$Graphics_Render$svg,
 		720,
@@ -13862,7 +13836,25 @@ var _rsbohn$codevember2016$C1123$viewSketch = function (model) {
 					2,
 					A4(_elm_lang$core$Color$hsla, 0, 0, 0.2, 1),
 					A2(_Kwarrtz$render$Graphics_Render$ellipse, 180, 180)),
-					_rsbohn$codevember2016$C1123$sketch(model)
+					A2(
+					_rsbohn$codevember2016$C1123$rotx,
+					40 - model.frame,
+					_Kwarrtz$render$Graphics_Render$group(
+						A2(
+							_elm_lang$core$List$indexedMap,
+							F2(
+								function (n, p) {
+									return A2(
+										_rsbohn$codevember2016$C1123$box,
+										1,
+										{
+											ctor: '_Tuple2',
+											_0: p * 42,
+											_1: _elm_lang$core$Basics$sin(
+												_elm_lang$core$Basics$toFloat(n + model.frame) / 4) * 120
+										});
+								}),
+							_elm_lang$core$Native_List.range(-4, 4))))
 				])));
 };
 var _rsbohn$codevember2016$C1123$view = function (model) {
@@ -13878,7 +13870,7 @@ var _rsbohn$codevember2016$C1123$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_rsbohn$codevember2016$C1123$viewSketch(model)
+						_rsbohn$codevember2016$C1123$viewSketch1123(model)
 					])),
 				A2(
 				_elm_lang$html$Html$div,
